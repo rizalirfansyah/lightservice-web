@@ -1,0 +1,1 @@
+<img src="img/opsianakmuda.png" alt="" class="mx-auto h-8 w-10">
