@@ -122,7 +122,7 @@
     {{-- Tabel data servis masuk --}}
        <div class="mt-0.5 mx-4">
            <div class="w-full overflow-hidden rounded-lg">
-           <div class="w-full overflow-x-auto">
+           <div class="w-full lg:overflow-x-auto">
                <table class="w-full">
                <thead>
                    <tr class="text-xs font-semibold tracking-wide text-left uppercase border-b border-gray-700 text-gray-400 bg-gray-800">
@@ -136,7 +136,7 @@
                    <th class="px-4 py-3">Tipe gadget</th>
                    <th class="px-4 py-3">Kelengkapan</th>
                    <th class="px-4 py-3">Kerusakan</th>
-                   <th class="px-4 py-3">Password Unit</th>
+                   <th class="px-4 py-3">Password</th>
                    <th class="px-4 py-3 text-center">Status</th>
                    <th class="px-4 py-3 text-center">Garansi</th>
                    <th class="px-4 py-3 text-center">Aksi</th>
@@ -167,7 +167,9 @@
                    <td class="px-4 py-3 text-sm">{{ $dataservis->kerusakan }}</td>
                    <td class="px-4 py-3 text-sm">{{ $dataservis->password_device }}</td>
                    <td class="px-4 py-3 text-xs">
-                    <span class="px-3 py-1 font-semibold leading-tight rounded-xl" 
+                    <div>
+                        {{-- modal edit status --}}
+                    <button data-modal-target="staticModal{{ $dataservis->id }}" data-modal-toggle="staticModal{{ $dataservis->id }}"  class="px-3 py-1 font-semibold leading-tight rounded-xl" 
                     style="background-color: 
                     @if ($dataservis->status == 'daftar')
                         green;
@@ -182,7 +184,64 @@
                     @endif
                     color: white;">
                     {{ $dataservis->status }}
-                    </span>
+                    </button>
+
+                    <!-- Main modal -->
+                    <div id="staticModal{{ $dataservis->id }}" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div id="staticModal{{ $dataservis->id }}" class="relative w-full max-w-2xl max-h-full">
+                            <!-- Modal content -->
+                            <div class="relative rounded-lg shadow bg-gray-700">
+                                <!-- Modal header -->
+                                <div class="flex items-start justify-between p-4 border-b rounded-t border-gray-600">
+                                    <h3 class="text-xl font-semibold text-white">
+                                        Update Status Perbaikan
+                                    </h3>
+                                    <button class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="staticModal{{ $dataservis->id }}">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="p-6 space-y-6">
+                                    <div class="px-25 flex gap-10 justify-center">
+                                        <form class="flex" action="{{ route('repairs.update', $dataservis->id) }}" method="POST">
+                                            @csrf
+
+                                            @method('PUT')
+                                            <div class="flex items-center mr-4 gap-1">
+                                                <input type="radio" name="status" value="daftar" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" @if(old('status', $dataservis->id === $dataservis->id && $dataservis->status === 'daftar')) checked @endif>
+                                                <label for="status" class="px-3 py-1 font-semibold text-white leading-tight rounded-xl bg-red-600">Daftar</label>
+                                            </div>
+                                            <div class="flex items-center mr-4 gap-1">
+                                                <input type="radio" name="status" value="pengecekan" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" @if(old('status', $dataservis->id === $dataservis->id && $dataservis->status === 'pengecekan')) checked @endif>
+                                                <label for="inline-2-radio" class="px-3 py-1 font-semibold text-white leading-tight rounded-xl bg-yellow-600">Pengecekan</label>
+                                            </div>
+                                            <div class="flex items-center mr-4 gap-1">
+                                                <input type="radio" name="status" value="perbaikan" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" @if(old('status', $dataservis->id === $dataservis->id && $dataservis->status === 'perbaikan')) checked @endif>
+                                                <label for="inline-checked-radio" class="px-3 py-1 font-semibold text-white leading-tight rounded-xl bg-violet-600">Perbaikan</label>
+                                            </div>
+                                            <div class="flex items-center mr-4 gap-1">
+                                                <input type="radio" name="status" value="selesai" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" @if(old('status', $dataservis->id === $dataservis->id && $dataservis->status === 'selesai')) checked @endif>
+                                                <label for="inline-4-radio" class="px-3 py-1 font-semibold text-white leading-tight rounded-xl bg-green-600">Selesai</label>
+                                            </div>
+                                    </div>
+                                </div>
+                                    <!-- Modal footer -->
+                                    <div class="flex flex-col items-center justify-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                        <h3 class="mb-5 text-xl">Detail Servis</h3>
+                                        <textarea name="" id="" cols="30" rows="10" class="block w-full rounded-lg text-black pl-2"></textarea>
+                                        <div class="space-x-4">
+                                            <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Edit</button>
+                                            <button data-modal-hide="staticModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
                    </td>
                    <td class="px-4 py-3 text-sm">30 Hari</td>
                    <td class="px-4 py-3 text-xs flex justify-center">

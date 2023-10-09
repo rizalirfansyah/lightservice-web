@@ -26,12 +26,12 @@ class UpdateRepairRequest extends FormRequest
     public function rules()
     {
         return [
-            'jenis_gadget' => 'required|regex:/^[a-zA-Z0-9\s]+$/',
-            'tipe_gadget' => 'required|regex:/^[a-zA-Z0-9\s]+$/',
-            'kelengkapan' => 'required|regex:/^[a-zA-Z0-9\s]+$/',
-            'kerusakan' => 'required|regex:/^[a-zA-Z0-9\s,]+$/',
-            'password_device' => 'required',
-            'status' => 'required',
+            'jenis_gadget' => 'regex:/^[a-zA-Z0-9\s]+$/',
+            'tipe_gadget' => 'regex:/^[a-zA-Z0-9\s]+$/',
+            'kelengkapan' => 'regex:/^[a-zA-Z0-9\s]+$/',
+            'kerusakan' => 'regex:/^[a-zA-Z0-9\s,]+$/',
+            'password_device' => '',
+            'status' => '',
         ];
     }
 

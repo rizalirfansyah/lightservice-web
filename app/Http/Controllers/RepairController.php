@@ -128,7 +128,6 @@ class RepairController extends Controller
         }
 
         if ($repair->status != 'daftar') {
-
             $send_mail = $repair->pelanggan->email;
             dispatch(new SendEmailQueueJob($send_mail));
         }
@@ -196,22 +195,6 @@ class RepairController extends Controller
         
         return view ('home.komentar', compact('repair'));
     }
-
-    // public function search(Request $request)
-    // {
-    //     $keyword = $request->input('keyword');
-
-    //     $repair = Repair::where('nomor_servis', 'like', '%' . $keyword . '%')
-    //         ->orWhere('nama_pelanggan', 'like', '%' . $keyword . '%')
-    //         ->orWhere('jenis_gadget', 'like', '%' . $keyword . '%')
-    //         ->orWhere('tipe_gadget', 'like', '%' . $keyword . '%')
-    //         ->paginate(20);
-
-    //         return view('home.terima-servis', [
-    //             'repair' => $repair,
-    //             'keyword' => $keyword,
-    //         ]);
-    // }
     
     public function cetakbukti(Repair $repair)
     {

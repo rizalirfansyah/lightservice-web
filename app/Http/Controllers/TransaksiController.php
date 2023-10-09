@@ -184,43 +184,6 @@ class TransaksiController extends Controller
         return view('home.pembayaran', compact('repair', 'pelanggan', 'transaksi'));
     }
 
-    // public function getDailyCost($date)
-    // {
-    //     $totalCost = Transaksi::whereDate('updated_at', $date)
-    //     ->where('status_transaksi', 'Lunas')
-    //     ->sum('harga');
-        
-    //     return $totalCost ?? 0;
-    // }
-
-    // public function pendapatan(Request $request)
-    // {
-    //     $start = (new DateTime($request->input('start')))->format('Y-m-d');
-    //     $end = (new DateTime($request->input('end')))->format('Y-m-d');
-        
-    //     if ($request->has(['start', 'end'])) {
-    //         $dates = Transaksi::where('status_transaksi', 'Lunas')
-    //             ->whereDate('updated_at', '>=', $start)
-    //             ->whereDate('updated_at', '<=', $end)
-    //             ->selectRaw('DATE(updated_at) as date')
-    //             ->groupBy('date')
-    //             ->paginate(10); // Menambahkan paginate dengan 10 item per halaman
-    //     } else {
-    //         $dates = Transaksi::where('status_transaksi', 'Lunas')
-    //             ->selectRaw('DATE(updated_at) as date')
-    //             ->groupBy('date')
-    //             ->paginate(10); // Menambahkan paginate dengan 10 item per halaman
-    //     }
-
-    //     $totalCosts = [];
-    //     foreach ($dates as $date) {
-    //         $totalCost = $this->getDailyCost($date->date);
-    //         $totalCosts[$date->date] = $totalCost;
-    //     }
-
-    //     return view('home.report', compact('totalCosts', 'dates'));
-    // }
-
     public function cetaktagihan(Transaksi $transaksi)
     {
         $repair = Repair::all();
