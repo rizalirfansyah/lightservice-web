@@ -127,11 +127,6 @@ class RepairController extends Controller
             return redirect()->back()->with('error', 'Tidak dapat memperbarui data yang sudah selesai perbaikan.');
         }
 
-        if ($repair->status != 'daftar') {
-            $send_mail = $repair->pelanggan->email;
-            dispatch(new SendEmailQueueJob($send_mail));
-        }
-
         $repair->update($request->validated());
 
         return redirect()->route('repairs.index')

@@ -36,6 +36,7 @@ class StoreRepairRequest extends FormRequest
         'kerusakan' => 'required|regex:/^[a-zA-Z0-9,\s]+$/',
         'password_device' => 'required|regex:/^[a-zA-Z0-9\s-]+$/',
         'status' => 'nullable|regex:/^[a-zA-Z0-9\s]+$/',
+        'garansi' => 'required',
         'comments' => 'nullable|regex:/^[a-zA-Z0-9\s]+$/|max:100',
         ];
     }

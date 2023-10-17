@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('kerusakan');
             $table->string('password_device');
             $table->string('status');
+            $table->integer('garansi');
             $table->foreign('pelanggan_id')->references('id')->on('pelanggan');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

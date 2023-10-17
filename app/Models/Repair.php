@@ -24,6 +24,7 @@ class Repair extends Model
         'kerusakan',
         'password_device',
         'status',
+        'garansi',
         'comments',
     ];
 

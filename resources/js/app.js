@@ -1,10 +1,12 @@
 import './bootstrap';
 import 'flowbite';
-
 import Alpine from 'alpinejs';
 import focus from '@alpinejs/focus';
 
+import Datepicker from 'flowbite-datepicker/Datepicker';
+
 import 'flowbite-datepicker';
+import 'flowbite/dist/datepicker.turbo.js';
 
 window.Alpine = Alpine;
 
@@ -30,3 +32,8 @@ import {
   } from "tw-elements";
   
   initTE({ Chart });
+
+const datepickerEl = document.getElementById('datepickerId');
+new Datepicker(datepickerEl, {
+    // options
+}); 

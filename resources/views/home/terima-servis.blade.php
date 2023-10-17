@@ -102,11 +102,25 @@
                                 </div>
                                 <div>
                                     <label for="kerusakan" class="block mb-2 text-sm font-medium text-white">Kerusakan</label>
-                                    <input type="text" name="kerusakan" id="kerusakan" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Contoh: Ganti IC" required>
+                                    <select id="kerusakan" name="kerusakan" class="select2 text-sm rounded-lg block w-96 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                                        <option selected disabled class="select2 text-white text-sm rounded-lg block w-96 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">Pilih</option>
+                                        <option value="replacement">Replacement</option>
+                                        <option value="jasa">Jasa</option>
+                                        <option value="dll">Dll</option>
+                                    </select>
                                 </div>
                                 <div>
                                     <label for="password_device" class="block mb-2 text-sm font-medium text-white">Password Device</label>
                                     <input type="text" name="password_device" id="password_device" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" placeholder="Contoh: lightservice123 / 4679" required>
+                                </div>
+                                <div>
+                                    <label for="garansi" class="block mb-2 text-sm font-medium text-white">Garansi</label>
+                                    <select id="garansi" name="garansi" required class="select2 text-sm rounded-lg block w-96 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                                        <option selected disabled class="select2 text-white text-sm rounded-lg block w-96 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">Pilih</option>
+                                        <option value="3">3 Hari</option>
+                                        <option value="7">7 Hari</option>
+                                        <option value="30">30 Hari</option>
+                                    </select>
                                 </div>
                                 
                                 <button class="w-full text-white focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">Simpan</button>
@@ -243,7 +257,23 @@
                     </div>
                     </div>
                    </td>
-                   <td class="px-4 py-3 text-sm">30 Hari</td>
+
+                    
+                   <td class="px-4 py-3 text-sm">
+                        @php
+                        $tanggalMasuk = \Carbon\Carbon::parse($dataservis->tanggal_masuk);
+                        $tanggalSekarang = \Carbon\Carbon::now();
+                        $selisihHari = $tanggalMasuk->diffInDays($tanggalSekarang);
+                        $garansiHari = $dataservis->garansi;
+                    
+                        if ($selisihHari < $garansiHari) {
+                            $sisaHari = $garansiHari - $selisihHari;
+                            echo "Tinggal " . $sisaHari . " hari";
+                        } else {
+                            echo "Garansi Habis";
+                        }
+                        @endphp
+                    </td>
                    <td class="px-4 py-3 text-xs flex justify-center">
 
                     <!-- Modal edit toggle -->
@@ -335,87 +365,6 @@
                                 </div>
                             </div>
                         </div>
-
-                    {{-- modal detail servis --}}
-                    <button data-modal-target="detial-data-servis{{ $dataservis->id }}" data-modal-toggle="detial-data-servis{{ $dataservis->id }}" class="flex items-center justify-center my-7 text-white bg-gradient-to-br from-red-400 to-cyan-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-800 font-sm rounded-lg px-3.5 py-2 text-center mr-2">
-                        <svg class="h-4 w-4 text-white"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="12" cy="12" r="9" />  <line x1="12" y1="8" x2="12.01" y2="8" />  <polyline points="11 12 12 12 12 16 13 16" /></svg>Detail</button>
-                    <!-- Main modal edit data servis -->
-                    <div id="detial-data-servis{{ $dataservis->id }}" data-modal-placement="center" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
-                        <div class="relative w-full 2xl:h-full max-w-md md:h-auto min-h-[40rem]">
-                            <!-- Modal content -->
-                            <div class="relative rounded-lg shadow bg-gray-700">
-                                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:bg-gray-800 hover:text-white" data-modal-hide="detial-data-servis{{ $dataservis->id }}">
-                                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                    <span class="sr-only">Close modal</span>
-                                </button>
-                                <div class="px-6 py-6 lg:px-8">
-                                    <h3 class="mb-4 text-xl font-medium text-white">Input Detail servis</h3>
-                                    <form class="space-y-6" action="{{ route('detail-servis.store',  $dataservis->id) }}" method="POST">
-                                        @csrf
-        
-                                        @method('POST')
-                                        <div>
-                                            <label for="tanggal_input" class="block mb-2 text-sm font-medium text-white">Tanggal input</label>
-                                            <input type="datetime-local" value="{{ date('Y-m-d\TH:i') }}" name="tanggal_input" id="tanggal_input" class="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" required>
-                                        </div>
-                                        <label for="tanggal_input" class="block mb-2 text-sm font-medium text-white">Input Perbaikan</label>
-                                        <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-                                            <input type="text" id="perbaikan_servis_id" name="perbaikan_servis_id" hidden value="{{ $dataservis->id }}">
-                                            <label for="kerusakan_servis" class="sr-only">Your comment</label>
-                                            <textarea id="kerusakan_servis" name="kerusakan_servis" rows="6" maxlength="255"
-                                                class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
-                                                placeholder="" required></textarea>
-                                        </div>
-                                        
-                                        <button class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-500 bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-                                            Simpan
-                                        </button>
-                                    </form>
-
-                                    <h3 class="mb-4 text-lg font-medium text-white">Daftar perbaikan</h3>
-                                    <div class="overflow-x-auto py-2 px-4 mb-4">
-                                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                                <tr>
-                                                    <th scope="col" class="px-6 py-3">
-                                                        Tanggal
-                                                    </th>
-                                                    <th scope="col" class="px-6 py-3">
-                                                        Perbaikan
-                                                    </th>
-                                                    <th scope="col" class="px-6 py-3">
-                                                        Aksi
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($detailServis as $detail)
-                                                @if($dataservis->id == $detail->perbaikan_servis_id)
-                                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                            {{ $detail->tanggal_input }}
-                                                        </th>
-                                                        <td class="px-6 py-4">
-                                                            {{ $detail->kerusakan_servis }}
-                                                        </td>
-                                                        <td class="px-6 py-4">
-                                                            <form action="{{ route('detail-servis.destroy', $detail->id ) }}" method="POST">
-                                                                @csrf
-        
-                                                                @method('delete')
-                                                                <button class="mt-4 ml-1 px-2 py-2 text-white focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm text-center bg-red-600 hover:bg-red-700 focus:ring-red-800">hapus</button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
-                                                @endif
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                         
                         <form class="space-y-6 mt-1" action="{{ route('repairs.update', $dataservis->id) }}" method="POST">
                             @csrf

@@ -55,6 +55,7 @@
                         <label for="tanggal_masuk" class="block mb-2 text-sm font-medium text-gray-300">Tanggal Masuk</label>
                         <input type="datetime-local" value="{{ date('Y-m-d\TH:i') }}" name="tanggal_masuk" id="tanggal_masuk" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" required>
                     </div>
+                      
                     <div class="relative max-w-sm">
                         <label for="user_id" class="block mb-2 text-sm font-medium text-white">Pilih nama teknisi</label>
                         <select id="user_id" name="user_id" class="select2 text-sm rounded-lg block w-96 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
@@ -69,12 +70,12 @@
                         <input type="text" name="kelengkapan" id="kelengkapan" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" placeholder="Contoh : Unit dan charger" pattern="^[a-zA-Z0-9\s]+$" required>
                     </div>
                     <div class="relative max-w-sm">
-                        <label for="" class="block mb-2 text-sm font-medium text-white">Kerusakan</label>
-                        <select id="" name="" class="select2 text-sm rounded-lg block w-96 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                        <label for="kerusakan" class="block mb-2 text-sm font-medium text-white">Kerusakan</label>
+                        <select id="kerusakan" name="kerusakan" class="select2 text-sm rounded-lg block w-96 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                             <option selected disabled class="select2 text-white text-sm rounded-lg block w-96 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">Pilih</option>
-                            <option>Replacement</option>
-                            <option>Jasa</option>
-                            <option>Dll</option>
+                            <option value="replacement">Replacement</option>
+                            <option value="jasa">Jasa</option>
+                            <option value="dll">Dll</option>
                         </select>
                     </div>
                     <div class="mb-6">
@@ -82,12 +83,12 @@
                         <input type="text" name="password_device" id="password_device" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 shadow-sm-light" placeholder="Contoh : lightservice123, atau 12345" pattern="^[a-zA-Z0-9\s]+$" required>
                     </div>
                     <div class="relative max-w-sm">
-                        <label for="" class="block mb-2 text-sm font-medium text-white">Garansi</label>
-                        <select id="" name="" class="select2 text-sm rounded-lg block w-96 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                        <label for="garansi" class="block mb-2 text-sm font-medium text-white">Garansi</label>
+                        <select id="garansi" name="garansi" required class="select2 text-sm rounded-lg block w-96 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                             <option selected disabled class="select2 text-white text-sm rounded-lg block w-96 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">Pilih</option>
-                            <option>3 Hari</option>
-                            <option>7 Hari</option>
-                            <option>30 Hari</option>
+                            <option value="3">3 Hari</option>
+                            <option value="7">7 Hari</option>
+                            <option value="30">30 Hari</option>
                         </select>
                     </div>
                     <div class="flex justify-end">
